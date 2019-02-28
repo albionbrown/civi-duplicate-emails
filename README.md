@@ -1,4 +1,4 @@
-# org.cepr.duplicate-emails
+# Duplicate Emails
 
 This is a extension for CiviCRM. When installed, it prevents email addresses from being used across multiple contacts.
 
@@ -35,7 +35,7 @@ cv en duplicate_emails
 
 ## Usage
 
-(* FIXME: Where would a new user navigate to get started? What changes would they see? *)
+Clone/extract this project into the ext directory within your CiviCRM installation
 
 ## Known Issues
 
