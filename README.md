@@ -39,4 +39,4 @@ Clone/extract this project into the ext directory within your CiviCRM installati
 
 ## Known Issues
 
-(* FIXME *)
+None
