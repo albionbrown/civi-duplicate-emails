@@ -21,6 +21,8 @@ function duplicate_emails_civicrm_validateForm($formName, &$fields, &$files, &$f
   $email = null;
   $contactID = null;
 
+
+
   // Civi uses differing data structures for different form submissions
   switch ($formName) {
 
@@ -41,7 +43,8 @@ function duplicate_emails_civicrm_validateForm($formName, &$fields, &$files, &$f
     // Full contact edit form
     case 'CRM_Contact_Form_Contact':
 
-      $contactID = (int)$form->_contactId;
+      $contactID = (int)$form->_contactId ?: 0;
+
       foreach ($fields['email'] as $emailKey => $emailData) {
         $email = $emailData['email'];
         if (!empty($email)) {
@@ -52,7 +55,7 @@ function duplicate_emails_civicrm_validateForm($formName, &$fields, &$files, &$f
       }
       break;
     
-    // Form added to Drupal user entity
+    // Form added to Drupal user entity form
     case 'CRM_Profile_Form_Dynamic':
     
       $contactID = (int)$form->get('id');
@@ -67,7 +70,7 @@ function duplicate_emails_civicrm_validateForm($formName, &$fields, &$files, &$f
 
       foreach ($emailsToValidate as $emailKey) {
         $email = $fields[$emailKey];
-        if (duplicate_emails_email_is_used($email, $contactID)) {
+        if (!empty($email) && duplicate_emails_email_is_used($email, $contactID)) {
           $errors[$emailKey] = ts("This email address is unavailable. Please <a href='/contact'>contact CEPR</a> if you require assistance.");
         }
       }
