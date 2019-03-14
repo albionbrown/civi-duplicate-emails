@@ -92,12 +92,11 @@ function duplicate_emails_civicrm_validateForm($formName, &$fields, &$files, &$f
  *               False if the email is not a duplicate
  */
 function duplicate_emails_email_is_used(string $email, int $contactID) : bool {
-  
-  $perms = \Civi\Api4\Email::permissions();
 
   $emails = \Civi\Api4\Email::get()
     ->addWhere("contact_id", "!=", $contactID)
     ->addWhere("email", "=", $email)
+    ->addWhere("contact.is_deleted", "=", 0)
     ->setCheckPermissions(false)
     ->setLimit(1)
     ->execute();
